@@ -27,7 +27,7 @@ def transcribe_video(video_path):
         os.makedirs("output", exist_ok=True)
         
         # Write the transcript to a file
-        output_path = "output/transcript.txt"
+        output_path = "transcript/transcript.txt"
         with open(output_path, "w", encoding="utf-8") as f:
             for segment in transcript.segments:
                 start_time = format_timestamp(segment.start)
@@ -47,4 +47,4 @@ def format_timestamp(seconds):
     return f"{hours:02d}:{minutes:02d}:{seconds:02d}"
 
 if __name__ == "__main__":
-    transcribe_video("input/video.mp4")
+    transcribe_video("input/example_input.mp4")
