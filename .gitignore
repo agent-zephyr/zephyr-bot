@@ -161,7 +161,12 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-input/*
-transcript/*
-output/*
-segment_*
+input/*.mp4
+!input/car_repair.mp4
+transcript/*.json
+!transcript/car_repair.json
+relevant_segments/*.json
+!relevant_segments/car_repair.json
+video_segments/segment_*.mp4
+output/*.mp4
+!output/car_repair.mp4
