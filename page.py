@@ -40,7 +40,10 @@ def show_page():
             speech2text.transcribe_video(file_name)
             
             status_message.info("Getting relevant timestamps...")
-            relevant_timestamps.get_relevant_timestamps(base_name)
+            relevant_timestamps.get_relevant_timestamps(
+                base_name,
+                editing_instructions
+            )
             
             status_message.info("Converting into video...")
             split(f"input/{file_name}", f"output/{file_name}", f"relevant_segments/{base_name}.json")

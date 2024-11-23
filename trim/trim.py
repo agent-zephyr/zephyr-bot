@@ -25,7 +25,7 @@ def trim_and_reencode(input_file, start_time, duration, output_file):
         "-sc_threshold", "0",    # Disable scene change detection for consistent keyframes
         output_file
     ]
-    subprocess.run(command, check=True)
+    subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     
     
@@ -49,7 +49,7 @@ def concat_clips(segments, output_file):
 
     # Run the command
     try:
-        subprocess.run(command, check=True)
+        subprocess.run(command, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print("FFmpeg command executed successfully.")
     except subprocess.CalledProcessError as e:
         print(f"Error occurred: {e}")
