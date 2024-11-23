@@ -37,6 +37,8 @@ Strictly format the output as a valid JSON list with each object containing:
 - "text" (string): A section of the transcript.
 - "start_time" (string): The start time of the section in HH:MM:SS format.
 - "end_time" (string): The end time of the section in HH:MM:SS format.
+- "title_screen" (string): If this is a new section of the video, label it with the appropriate section title.
+A title screen with title_screen will be added to the beginning of the segment if title_screen is not empty.
 
 Example:
 [
@@ -49,6 +51,7 @@ Example:
         "text": "We'll unloosen it with the hole down, then give it a couple good raps.",
         "start_time": "00:00:17",
         "end_time": "00:00:22",
+        "title_screen": "How to unscrew the spare tire"
     }}
 ]
 
