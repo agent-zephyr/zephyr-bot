@@ -5,6 +5,7 @@ take a video from input/video.mp4 and output the text transcript along with the 
 import openai
 import os
 import dotenv
+import json
 
 dotenv.load_dotenv()
 
@@ -20,19 +21,25 @@ def transcribe_video(video_path):
             transcript = openai.audio.transcriptions.create(
                 model="whisper-1",
                 file=audio_file,
-                response_format="verbose_json"  # This will include word-level timestamps
+                response_format="verbose_json"
             )
         
         # Create output directory if it doesn't exist
         os.makedirs("output", exist_ok=True)
         
-        # Write the transcript to a file
-        output_path = "transcript/transcript.txt"
+        # Create list of transcript segments
+        transcript_data = []
+        for segment in transcript.segments:
+            transcript_data.append({
+                "text": segment.text,
+                "start_time": format_timestamp(segment.start),
+                "end_time": format_timestamp(segment.end)
+            })
+        
+        # Write the transcript to a JSON file
+        output_path = "transcript/transcript.json"
         with open(output_path, "w", encoding="utf-8") as f:
-            for segment in transcript.segments:
-                start_time = format_timestamp(segment.start)
-                end_time = format_timestamp(segment.end)
-                f.write(f"[{start_time} --> {end_time}] {segment.text}\n")
+            json.dump(transcript_data, f, indent=2, ensure_ascii=False)
         
         print(f"Transcript saved to {output_path}")
         
