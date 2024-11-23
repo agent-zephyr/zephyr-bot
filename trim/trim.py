@@ -1,5 +1,6 @@
 import subprocess
 import json
+import os
 
 def trim_and_reencode(input_file, start_time, duration, output_file):
     """
@@ -34,6 +35,7 @@ def concat_clips(segments, output_file):
             f.write(f"file '{segment}'\n")    
     command = [
         "ffmpeg",
+        "-y",
         "-f", "concat",       # Use concat demuxer
         "-safe", "0",         # Allow potentially unsafe file paths
         "-i", "file_list.txt",# Input file list
@@ -60,7 +62,7 @@ def timestamp_to_seconds(file_path):
     # Sort data by start_time before processing
     data.sort(key=lambda x: sum(int(t) * m for t, m in zip(x['start_time'].split(':'), [3600, 60, 1])))
     
-    print(data)
+    # print(data)
     
     points = []
     for segment in data:
@@ -76,10 +78,13 @@ def timestamp_to_seconds(file_path):
     return points
 
 def split(input_file, output_file, file_path):
+    for file in os.listdir("video_segments"):
+        if file.endswith(".mp4"):
+            os.remove(os.path.join("video_segments", file))
     segments = timestamp_to_seconds(file_path)
     segs = []
     for i, segment in enumerate(segments):
         start_time, duration = segment
-        trim_and_reencode(input_file, start_time, duration, f"segment_{i}.mp4")
-        segs.append(f"segment_{i}.mp4")
+        trim_and_reencode(input_file, start_time, duration, f"video_segments/segment_{i}.mp4")
+        segs.append(f"video_segments/segment_{i}.mp4")
     concat_clips(segs, output_file)
