@@ -16,6 +16,9 @@ def transcribe_video(video_path):
         raise FileNotFoundError(f"Video file not found at {video_path}")
     
     try:
+        # Get the filename without extension
+        base_filename = os.path.splitext(os.path.basename(video_path))[0]
+        
         # Open the audio file and transcribe using Whisper
         with open(video_path, "rb") as audio_file:
             transcript = openai.audio.transcriptions.create(
@@ -23,9 +26,6 @@ def transcribe_video(video_path):
                 file=audio_file,
                 response_format="verbose_json"
             )
-        
-        # Create output directory if it doesn't exist
-        os.makedirs("output", exist_ok=True)
         
         # Create list of transcript segments
         transcript_data = []
@@ -36,8 +36,8 @@ def transcribe_video(video_path):
                 "end_time": format_timestamp(segment.end)
             })
         
-        # Write the transcript to a JSON file
-        output_path = "transcript/transcript.json"
+        # Write the transcript to a JSON file using the same filename
+        output_path = f"transcript/{base_filename}.json"
         with open(output_path, "w", encoding="utf-8") as f:
             json.dump(transcript_data, f, indent=2, ensure_ascii=False)
         
