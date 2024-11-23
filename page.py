@@ -2,6 +2,7 @@ import streamlit as st
 import os
 from speech2text import speech2text
 from extract_relevantTimestamps import relevant_timestamps
+from trim.trim import split
 
 def show_page():
     st.title("Video Editor")
@@ -18,7 +19,7 @@ def show_page():
     preset_options = [
         "Select a preset...",
         "Summarize the main contents of the video",
-        "Edit down the video length to two minutes"
+        "Edit down the video length to three minutes"
     ]
     selected_preset = st.selectbox("Example presets:", preset_options)
     
@@ -39,6 +40,8 @@ def show_page():
             video_path = os.path.join("input", uploaded_file.name)
             speech2text.transcribe_video(video_path)
             relevant_timestamps.get_relevant_timestamps(video_path)
+            base_name = os.path.splitext(os.path.basename(video_path))[0]
+            split(video_path, f"output/{uploaded_file.name}", f"relevant_segments/{base_name}.json")
             st.video(f"output/{uploaded_file.name}")
         else:
             st.warning("Please upload a video and provide editing instructions")

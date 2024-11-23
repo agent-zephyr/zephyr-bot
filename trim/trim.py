@@ -53,15 +53,16 @@ def concat_clips(segments, output_file):
         print(f"Error occurred: {e}")
         
 def timestamp_to_seconds(file_path):
-
     # Open the file and load its contents
     with open(file_path, 'r') as file:
         data = json.load(file)
-        
+    
+    # Sort data by start_time before processing
+    data.sort(key=lambda x: sum(int(t) * m for t, m in zip(x['start_time'].split(':'), [3600, 60, 1])))
+    
     print(data)
-        
+    
     points = []
-        
     for segment in data:
         # Split the timestamp into hours, minutes, and seconds
         hours, minutes, seconds = segment['start_time'].split(':')
