@@ -1,6 +1,7 @@
 import streamlit as st
 import os
 from speech2text import speech2text
+from extract_relevantTimestamps import relevant_timestamps
 
 def show_page():
     st.title("Video Editor")
@@ -37,8 +38,8 @@ def show_page():
             # Run transcription on the uploaded video
             video_path = os.path.join("input", uploaded_file.name)
             speech2text.transcribe_video(video_path)
-            
-            st.video("output/example_output.mp4")
+            relevant_timestamps.get_relevant_timestamps(video_path)
+            st.video(f"output/{uploaded_file.name}")
         else:
             st.warning("Please upload a video and provide editing instructions")
 
