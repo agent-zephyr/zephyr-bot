@@ -32,17 +32,20 @@ def show_page():
         key="editing_instructions"
     )
 
-    if st.button("Edit My Video"):
+    if st.button("Edit My Video!"):
         if uploaded_file is not None and editing_instructions:
-            st.info("Transcribing your video...")
+            status_message = st.info("Transcribing your video...")
             file_name = uploaded_file.name
             base_name = os.path.splitext(file_name)[0]
             speech2text.transcribe_video(file_name)
-            st.info("Getting relevant timestamps...")
+            
+            status_message.info("Getting relevant timestamps...")
             relevant_timestamps.get_relevant_timestamps(base_name)
-            st.info("Converting into video...")
+            
+            status_message.info("Converting into video...")
             split(f"input/{file_name}", f"output/{file_name}", f"relevant_segments/{base_name}.json")
             st.video(f"output/{file_name}")
+            status_message.info("Video editing complete!")
         else:
             st.warning("Please upload a video and provide editing instructions")
 
