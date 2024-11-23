@@ -1,5 +1,6 @@
 import subprocess
 import json
+from video import create_title_screen
 
 def trim_and_reencode(input_file, start_time, duration, output_file):
     """
@@ -80,6 +81,11 @@ def split(input_file, output_file, file_path):
     segs = []
     for i, segment in enumerate(segments):
         start_time, duration = segment
-        trim_and_reencode(input_file, start_time, duration, f"segment_{i}.mp4")
+        if hasattr(segment, 'title_screen'):
+            create_title_screen(segment['text'], output_file=f"segment_{i}_title.mp4", duration=3)
+            segs.append(f"segment_{i}_title.mp4")
+        if segment['type'] == 'video':
+            trim_and_reencode(input_file, start_time, duration, f"segment_{i}.mp4")
+            
         segs.append(f"segment_{i}.mp4")
     concat_clips(segs, output_file)
