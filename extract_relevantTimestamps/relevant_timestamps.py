@@ -8,9 +8,8 @@ def time_to_seconds(time_str):
     h, m, s = map(float, time_str.split(":"))
     return int(h * 3600 + m * 60 + s)
 
-def get_relevant_timestamps(video_path: str):
-    video_name = os.path.splitext(os.path.basename(video_path))[0]
-    with open(f"transcript/{video_name}.json", "r") as file:
+def get_relevant_timestamps(base_name: str):
+    with open(f"transcript/{base_name}.json", "r") as file:
         transcript_data = json.load(file)
 
     prompt = "Give me a summary of the most important steps needed to change a tire in a car."
@@ -53,7 +52,7 @@ def get_relevant_timestamps(video_path: str):
         else:
             break  
 
-    output_file_path = f"relevant_segments/{video_name}.json"
+    output_file_path = f"relevant_segments/{base_name}.json"
     os.makedirs("relevant_segments", exist_ok=True)  
     with open(output_file_path, "w") as output_file:
         json.dump(filtered_results, output_file, indent=4)

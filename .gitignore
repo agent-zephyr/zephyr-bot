@@ -162,7 +162,11 @@ cython_debug/
 #.idea/
 
 input/*.mp4
+!input/car_repair.mp4
 transcript/*.json
-output/*.mp4
+!transcript/car_repair.json
 relevant_segments/*.json
-segment_*
+!relevant_segments/car_repair.json
+video_segments/segment_*.mp4
+output/*.mp4
+!output/car_repair.mp4

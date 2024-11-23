@@ -11,7 +11,9 @@ dotenv.load_dotenv()
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-def transcribe_video(video_path):
+def transcribe_video(file_name):
+    video_path = f"input/{file_name}"
+    
     if not os.path.exists(video_path):
         raise FileNotFoundError(f"Video file not found at {video_path}")
     

@@ -5,7 +5,7 @@ from extract_relevantTimestamps import relevant_timestamps
 from trim.trim import split
 
 def show_page():
-    st.title("Video Editor")
+    st.title("Zephyr Video Editor")
 
     uploaded_file = st.file_uploader("Upload your video", type=['mp4', 'mov', 'avi'])
     
@@ -34,15 +34,15 @@ def show_page():
 
     if st.button("Edit My Video"):
         if uploaded_file is not None and editing_instructions:
-            st.info("Processing your video...")
-            
-            # Run transcription on the uploaded video
-            video_path = os.path.join("input", uploaded_file.name)
-            speech2text.transcribe_video(video_path)
-            relevant_timestamps.get_relevant_timestamps(video_path)
-            base_name = os.path.splitext(os.path.basename(video_path))[0]
-            split(video_path, f"output/{uploaded_file.name}", f"relevant_segments/{base_name}.json")
-            st.video(f"output/{uploaded_file.name}")
+            st.info("Transcribing your video...")
+            file_name = uploaded_file.name
+            base_name = os.path.splitext(file_name)[0]
+            speech2text.transcribe_video(file_name)
+            st.info("Getting relevant timestamps...")
+            relevant_timestamps.get_relevant_timestamps(base_name)
+            st.info("Converting into video...")
+            split(f"input/{file_name}", f"output/{file_name}", f"relevant_segments/{base_name}.json")
+            st.video(f"output/{file_name}")
         else:
             st.warning("Please upload a video and provide editing instructions")
 
