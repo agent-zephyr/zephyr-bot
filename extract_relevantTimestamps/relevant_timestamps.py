@@ -60,7 +60,7 @@ Document:
 """
     # Call the Cohere API
     response = cohere_client.generate(
-        model='command-medium-nightly',
+        model='command-xlarge-nightly',
         prompt=prompt,
         # max_tokens=2000,
         temperature=0.3

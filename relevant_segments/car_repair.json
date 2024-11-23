@@ -5,11 +5,6 @@
         "end_time": "00: 00: 32"
     },
     {
-        "text": "You'll have to loosen the jack a little bit in order to get the handle off.",
-        "start_time": "00: 00: 43",
-        "end_time": "00: 00: 46"
-    },
-    {
         "text": "We use the jack handle to raise the vehicle.",
         "start_time": "00: 02: 13",
         "end_time": "00: 02: 15"
@@ -43,5 +38,25 @@
         "text": "Insert the jack handle back into the jack, turning it counterclockwise again, we're going to lower the vehicle.",
         "start_time": "00: 04: 26",
         "end_time": "00: 04: 30"
+    },
+    {
+        "text": "Again, this will take some time, but going down is a lot easier than going up.",
+        "start_time": "00: 04: 32",
+        "end_time": "00: 04: 36"
+    },
+    {
+        "text": "If it seems to be going down easy, you can just do it like this by doing it straight instead of having it angled.",
+        "start_time": "00: 04: 36",
+        "end_time": "00: 04: 40"
+    },
+    {
+        "text": "But if it's too tough, you can angle it and get the leverage that you'll need to lower the jack or to raise the jack.",
+        "start_time": "00: 04: 42",
+        "end_time": "00: 04: 45"
+    },
+    {
+        "text": "Turn the jack low enough, you can do it by hand now that it doesn't have contact with the frame, and we can remove it.",
+        "start_time": "00: 04: 50",
+        "end_time": "00: 04: 53"
     }
 ]
